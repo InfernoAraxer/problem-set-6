@@ -12,11 +12,11 @@
 
 function sayHello() {
 
-let canvas = document.getElementById("canvas1");
-let font = canvas.getContext("2d");
-font.clearRect(0, 0, 1024, 128);
-font.font = "48px sans-serif";
-font.strokeText("Hello, World!", 10, 50);
+  let canvas = document.getElementById("canvas1");
+  let font = canvas.getContext("2d");
+  font.clearRect(0, 0, 1024, 128);
+  font.font = "48px sans-serif";
+  font.strokeText("Hello, World!", 10, 50);
 
 }
 
@@ -45,33 +45,33 @@ font.strokeText("Hello, World!", 10, 50);
 
 function drawRectangle() {
 
-let canvas = document.getElementById("canvas2");
-let rect = canvas.getContext("2d");
-let height = prompt("Height:");
-height = Number(height);
-let width = prompt("Width:");
-width = Number(width);
-let x = prompt("X:");
-x = Number(x);
-let y = prompt("Y:");
-y = Number(y);
-if ( (isNaN(x)) || (isNaN(y)) || (isNaN(height)) || (isNaN(width))) {
-  alert("One of your inputs is not a number.");
-} else if ( (x + width >= 1024) || (y + height >= 512) ) {
-  alert("The rectangle will not fit on the canvas.");
-} else if (width < 1) {
-  alert("Your width is too small.");
-} else if (height < 1) {
-  alert("Your height is too small.");
-} else if (x < 5) {
-  alert("Your x-coordinate is too small.");
-} else if (y < 5) {
-  alert("Your y-coordinate is too small.");
-} else {
-  rect.clearRect(0, 0, 1024, 512);
-  rect.rect(x, y, width, height);
-  rect.stroke();
-}
+  let canvas = document.getElementById("canvas2");
+  let rect = canvas.getContext("2d");
+  let height = prompt("Height:");
+  height = Number(height);
+  let width = prompt("Width:");
+  width = Number(width);
+  let x = prompt("X:");
+  x = Number(x);
+  let y = prompt("Y:");
+  y = Number(y);
+  if ( (isNaN(x)) || (isNaN(y)) || (isNaN(height)) || (isNaN(width))) {
+    alert("One of your inputs is not a number.");
+  } else if ( (x + width >= 1024) || (y + height >= 512) ) {
+    alert("The rectangle will not fit on the canvas.");
+  } else if (width < 1) {
+    alert("Your width is too small.");
+  } else if (height < 1) {
+    alert("Your height is too small.");
+  } else if (x < 5) {
+    alert("Your x-coordinate is too small.");
+  } else if (y < 5) {
+    alert("Your y-coordinate is too small.");
+  } else {
+    rect.clearRect(0, 0, 1024, 512);
+    rect.rect(x, y, width, height);
+    rect.stroke();
+  }
 
 }
 
@@ -101,6 +101,9 @@ if ( (isNaN(x)) || (isNaN(y)) || (isNaN(height)) || (isNaN(width))) {
  */
 
 function drawColoredRectangle() {
+
+  let canvas = document.getElementById("canvas2");
+  let color = canvas.getContext("2d");
 
 }
 
