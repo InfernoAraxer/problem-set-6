@@ -47,6 +47,7 @@ function drawRectangle() {
 
   let canvas = document.getElementById("canvas2");
   let rect = canvas.getContext("2d");
+  rect.clearRect(0, 0, 1024, 512);
   let height = prompt("Height:");
   height = Number(height);
   let width = prompt("Width:");
@@ -68,7 +69,7 @@ function drawRectangle() {
   } else if (y < 5) {
     alert("Your y-coordinate is too small.");
   } else {
-    rect.clearRect(0, 0, 1024, 512);
+    rect.beginPath();
     rect.rect(x, y, width, height);
     rect.stroke();
   }
@@ -102,9 +103,16 @@ function drawRectangle() {
 
 function drawColoredRectangle() {
 
-  let canvas = document.getElementById("canvas2");
+  let canvas = document.getElementById("canvas3");
   let color = canvas.getContext("2d");
-
+  color.clearRect(0, 0, 1024, 128);
+  colour = prompt("Color:");
+  color.fillStyle = colour;
+  if (colour == "black" || colour == "yellow" || colour == "purple" || colour == "orange" || colour == "blue" || colour == "green" || colour == "red") {
+    color.fillRect(10, 10, 100, 50);
+  } else {
+    alert(colour + " is not a supported color.");
+  }
 }
 
 /*
@@ -138,6 +146,31 @@ function drawColoredRectangle() {
 
 function drawTriangle() {
 
+  let canvas = document.getElementById("canvas4");
+  let triangle = canvas.getContext("2d");
+  let side1 = prompt("Side 1:");
+  let side2 = prompt("Side 2:");
+  let side3 = prompt("side 3:");
+  side1 = Number(side1);
+  side2 = Number(side2);
+  side3 = Number(side3);
+
+  if ( (isNaN(side1)) || (isNaN(side2)) || (isNaN(side3)) ) {
+    alert("One of your inputs is not a number");
+  } else if ( ((Math.pow(side1, 2)) + (Math.pow(side2, 2)) != (Math.pow(side3, 2))) ) {
+    alert("This is not a valid right triangle.")
+  } else {
+    triangle.clearRect(0, 0, 1024, 512);
+    let sides = [side1, side2, side3];
+    sides.sort();
+    triangle.beginPath(10, 10);
+    triangle.lineTo(10, (side1 + 10));
+    triangle.lineTo((side2 + 10), (side1 + 10));
+    triangle.lineTo(10, 10);
+    triangle.closePath();
+    triangle.stroke();
+
+  }
 }
 
 /*
@@ -160,6 +193,32 @@ function drawTriangle() {
  */
 
 function drawSmileyFace() {
+  let canvas = document.getElementById("canvas5");
+  let radius = canvas.getContext("2d");
+  radius.clearRect(0, 0, 1024, 512);
+  let radii = prompt("Radius: ");
+  radii = Number(radii);
+  let eyes = (radii/10);
+  let mouth = (radii*0.7);
+
+  if (radii > 250.5) {
+    alert("The smiley face will not fit on the canvas.");
+  } else if (radii < 1) {
+    alert("Your radius is too small.")
+  } else {
+    radius.beginPath();
+    radius.arc((radii + 10), (radii + 10), radii, 0, 2 * Math.PI, false);
+    radius.stroke();
+    radius.beginPath();
+    radius.arc(( (radii+10)* 0.7), ((radii+10)*.6), eyes, 0, 2 * Math.PI, false);
+    radius.stroke();
+    radius.beginPath();
+    radius.arc(( (radii+10)*1.4), ((radii+10)*.6), eyes, 0, 2 * Math.PI, false);
+    radius.stroke();
+    radius.beginPath();
+    radius.arc((radii + 10), (radii*(1)), mouth, 0, Math.PI, false);
+    radius.stroke();
+  }
 
 }
 
