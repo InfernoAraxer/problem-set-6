@@ -201,22 +201,24 @@ function drawSmileyFace() {
   let eyes = (radii/10);
   let mouth = (radii*0.7);
 
-  if (radii > 250.5) {
-    alert("The smiley face will not fit on the canvas.");
+  if ( (isNaN(radii)) ) {
+    alert("Your input is not a number.")
   } else if (radii < 1) {
     alert("Your radius is too small.")
+  } else if (radii > 250.5) {
+    alert("The smiley face will not fit on the canvas.");
   } else {
     radius.beginPath();
     radius.arc((radii + 10), (radii + 10), radii, 0, 2 * Math.PI, false);
     radius.stroke();
     radius.beginPath();
-    radius.arc(( (radii+10)* 0.7), ((radii+10)*.6), eyes, 0, 2 * Math.PI, false);
+    radius.arc( ((radii+10)-(eyes*3.5)), ((radii+10)-(eyes*5.25)), eyes, 0, 2 * Math.PI, false);
     radius.stroke();
     radius.beginPath();
-    radius.arc(( (radii+10)*1.4), ((radii+10)*.6), eyes, 0, 2 * Math.PI, false);
+    radius.arc( ((radii+10)+(eyes*3.5)), ((radii+10)-(eyes*5.25)), eyes, 0, 2 * Math.PI, false);
     radius.stroke();
     radius.beginPath();
-    radius.arc((radii + 10), (radii*(1)), mouth, 0, Math.PI, false);
+    radius.arc((radii + 10), ((radii+10)-(mouth*0.05)), mouth, 0, Math.PI, false);
     radius.stroke();
   }
 
@@ -241,6 +243,36 @@ function drawSmileyFace() {
  */
 
 function drawStar() {
+
+  let canvas = document.getElementById("canvas6");
+  let star = canvas.getContext("2d");
+  star.clearRect(0, 0, 1024, 256);
+  let outerRadius = prompt("Outer Radius: ");
+  outterRadius = Number(outerRadius);
+  let innerRadius = prompt("Inner Radius: ");
+  innerRadius = Number(innerRadius);
+  if ( (isNaN(outerRadius)) || (isNaN(innerRadius)) ) {
+    alert("One of your inputs is not a number")
+  } else if ( innerRadius >= outerRadius ) {
+    alert("Your outer radius must be larger than your inner radius.")
+  } else {
+    star.beginPath();
+    star.moveTo(50,50);
+    star.lineTo(120,150);
+    star.lineTo(0,180);
+    star.lineTo(120,210);
+    star.lineTo(50,310);
+    star.lineTo(160,250);
+    star.lineTo(190,370);
+    star.lineTo(220,250);
+    star.lineTo(330,310);
+    star.lineTo(260,210);
+    star.lineTo(380,180);
+    star.closePath();
+    star.stroke();
+  }
+
+
 
 }
 
