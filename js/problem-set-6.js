@@ -293,6 +293,8 @@ function drawStar() {
 
 function drawStopSign() {
 
+
+
 }
 
 /*
