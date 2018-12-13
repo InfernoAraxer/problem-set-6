@@ -157,15 +157,24 @@ function drawTriangle() {
 
   if ( (isNaN(side1)) || (isNaN(side2)) || (isNaN(side3)) ) {
     alert("One of your inputs is not a number");
-  } else if ( ((Math.pow(side1, 2)) + (Math.pow(side2, 2)) != (Math.pow(side3, 2))) ) {
+  }
+
+  let sides = [];
+  sides.push(Math.min(side1, side2, side3));
+  let total = side1 + side2 + side3
+  side2 = (total - (sides[0] + Math.max(side1, side2, side3)));
+  sides.push(side2)
+  sides.push(Math.max(side1, side2, side3));
+  console.log(sides[0], sides[1], sides[2]);
+
+  if ( (sides[0]**2) + (sides[1]**2) != (sides[2]**2)) {
     alert("This is not a valid right triangle.")
   } else {
     triangle.clearRect(0, 0, 1024, 512);
-    let sides = [side1, side2, side3];
-    sides.sort();
+
     triangle.beginPath(10, 10);
-    triangle.lineTo(10, (side1 + 10));
-    triangle.lineTo((side2 + 10), (side1 + 10));
+    triangle.lineTo(10, (sides[0] + 10));
+    triangle.lineTo((sides[1] + 10), (sides[0] + 10));
     triangle.lineTo(10, 10);
     triangle.closePath();
     triangle.stroke();
@@ -256,24 +265,8 @@ function drawStar() {
   } else if ( innerRadius >= outerRadius ) {
     alert("Your outer radius must be larger than your inner radius.")
   } else {
-    star.beginPath();
-    star.moveTo(50,50);
-    star.lineTo(120,150);
-    star.lineTo(0,180);
-    star.lineTo(120,210);
-    star.lineTo(50,310);
-    star.lineTo(160,250);
-    star.lineTo(190,370);
-    star.lineTo(220,250);
-    star.lineTo(330,310);
-    star.lineTo(260,210);
-    star.lineTo(380,180);
-    star.closePath();
-    star.stroke();
+//https://www.w3schools.com/tags/canvas_arc.asp
   }
-
-
-
 }
 
 /*
@@ -293,6 +286,8 @@ function drawStar() {
 
 function drawStopSign() {
 
+  let canvas = document.getElementById("canvas6");
+  let star = canvas.getContext("2d");
 
 
 }
