@@ -106,13 +106,22 @@ function drawColoredRectangle() {
   let canvas = document.getElementById("canvas3");
   let color = canvas.getContext("2d");
   color.clearRect(0, 0, 1024, 128);
-  colour = prompt("Color:");
-  color.fillStyle = colour;
-  if (colour == "black" || colour == "yellow" || colour == "purple" || colour == "orange" || colour == "blue" || colour == "green" || colour == "red") {
-    color.fillRect(10, 10, 100, 50);
-  } else {
-    alert(colour + " is not a supported color.");
+  rectColor = prompt("Color:");
+  color.fillStyle = rectColor;
+  switch (rectColor) {
+    case "black":
+    case "yellow":
+    case "purple":
+    case "orange":
+    case "blue":
+    case "green":
+    case "red":
+      color.fillRect(10, 10, 100, 50);
+      break;
+    default:
+      alert(rectColor + " is not a supported color.");
   }
+
 }
 
 /*
@@ -255,9 +264,10 @@ function drawStar() {
 
   let canvas = document.getElementById("canvas6");
   let star = canvas.getContext("2d");
+  const PI = Math.PI;
   star.clearRect(0, 0, 1024, 256);
   let outerRadius = prompt("Outer Radius: ");
-  outterRadius = Number(outerRadius);
+  outerRadius = Number(outerRadius);
   let innerRadius = prompt("Inner Radius: ");
   innerRadius = Number(innerRadius);
   if ( (isNaN(outerRadius)) || (isNaN(innerRadius)) ) {
@@ -265,9 +275,22 @@ function drawStar() {
   } else if ( innerRadius >= outerRadius ) {
     alert("Your outer radius must be larger than your inner radius.")
   } else {
-//https://www.w3schools.com/tags/canvas_arc.asp
+    star.beginPath();
+    star.moveTo(125, 125 - outerRadius);
+    let x = 1.5;
+
+    for (let i = 0 ; i < 5; i++) {
+      x += 0.2;
+      star.lineTo((innerRadius * Math.cos(x * PI)) + 125, (innerRadius * Math.sin(x * PI)) + 125);
+      x += 0.2;
+      star.lineTo((outerRadius * Math.cos(x * PI)) + 125, (outerRadius * Math.sin(x * PI)) + 125);
+    }
+
+    star.stroke();
   }
 }
+
+//https://www.w3schools.com/tags/canvas_arc.asp
 
 /*
  * Stop Sign. 7 points.
@@ -286,9 +309,28 @@ function drawStar() {
 
 function drawStopSign() {
 
-  let canvas = document.getElementById("canvas6");
-  let star = canvas.getContext("2d");
+  let canvas = document.getElementById("canvas7");
+  let sign = canvas.getContext("2d");
+  sign.clearRect(0, 0, 1024, 256);
+  let length = 102.5;
+  const PI = Math.PI;
+  let x = 1.375;
 
+  sign.beginPath();
+  sign.moveTo((length * Math.cos(1.375 * PI)) + 107.5, (length * Math.sin(1.375 * PI)) + 107.5);
+  for (let i = 0 ; i < 9; i++) {
+    sign.lineTo((length * Math.cos(x * PI)) + 107.5, (length * Math.sin(x * PI)) + 107.5);
+    x += .25;
+  }
+
+  sign.lineWidth = 5;
+  sign.stroke();
+  sign.fillStyle = "red";
+  sign.fill();
+
+  sign.font = "65px sans-serif";
+  sign.fillStyle = "white";
+  sign.fillText("STOP", 19, 132.5);
 
 }
 
@@ -311,7 +353,47 @@ function drawStopSign() {
  */
 
 function drawPyramid() {
+  //100.2 max
+  let canvas = document.getElementById("canvas8");
+  let block = canvas.getContext("2d");
+  block.clearRect(0, 0, 1024, 512);
+  let length = prompt("Side Length: ");
+  length = Number(length);
+  let v = 1;
+  let w = .5;
+  let x = 10;
+  let y = 502;
+  let z = 5;
 
+  function createBlock() {
+    block.beginPath();
+    block.moveTo(x, y);
+    block.lineTo(x, y - length);
+    block.lineTo(x + length, y - length);
+    block.lineTo(x + length, y);
+    block.lineTo(x, y);
+    block.stroke();
+  }
+
+  if ( (isNaN(length)) ) {
+    alert("Your input is not a number.")
+  } else if (length <= 0) {
+    //alert("Your side length is too small.");
+  } else if (length > 100.2) {
+    alert("The pyramid will not fit on the canvas.");
+  } else {
+    for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < z; i++) {
+        createBlock();
+        x += length;
+      }
+      x = 10 + (w * length);
+      y = 502 - (v * length);
+      z--;
+      v++;
+      w += .5;
+    }
+  }
 }
 
 /*
@@ -344,5 +426,111 @@ function drawPyramid() {
  */
 
 function drawHouse() {
+  let canvas = document.getElementById("canvas9");
+  let house = canvas.getContext("2d");
+  let windows = canvas.getContext("2d");
+  let roof = canvas.getContext("2d");
+  let door = canvas.getContext("2d");
+  let knob = canvas.getContext("2d");
+  house.clearRect(0, 0, 1024, 760);
+  let houseColor = prompt("House Color: ");
+  let doorColor = prompt("Front Door Color");
+  let x = 270;
 
+  function buildWindows () {
+    for (let a = 0; a < 2; a++) {
+      let y = 712;
+      for (let i = 0; i < 2; i++){
+        windows.lineWidth = 3;
+        windows.beginPath();
+        windows.moveTo(x, y);
+        windows.lineTo(x + 75, y);
+        windows.lineTo(x + 75, y - 75);
+        windows.lineTo(x, y - 75);
+        windows.lineTo(x, y);
+        windows.stroke();
+        windows.fillStyle = "lightblue";
+        windows.fill();
+        y -= 225;
+      }
+    x += 404;
+    }
+  }
+
+  function buildHouse () {
+    house.lineWidth = 3;
+    house.beginPath();
+    house.moveTo(150, 750);
+    house.lineTo(874, 750);
+    house.lineTo(874, 300);
+    house.lineTo(150, 300);
+    house.lineTo(150, 750);
+    house.stroke();
+    house.fillStyle = houseColor;
+    house.fill();
+  }
+
+  function buildDoor () {
+    door.lineWidth = 3;
+    door.beginPath();
+    door.moveTo(462, 750);
+    door.lineTo(562, 750);
+    door.lineTo(562, 600);
+    door.lineTo(462, 600);
+    door.lineTo(462, 750);
+    door.stroke();
+    door.fillStyle = doorColor;
+    door.fill();
+  }
+
+  function buildKnob () {
+    knob.lineWidth = 3;
+    knob.beginPath();
+    knob.arc(545, 674, 7.5, 0, 2 * Math.PI);
+    knob.stroke();
+    knob.fillStyle = "yellow";
+    knob.fill();
+  }
+
+  function buildRoof () {
+    roof.lineWidth = 3;
+    roof.beginPath();
+    roof.moveTo(150, 300);
+    roof.lineTo(512, 8);
+    roof.lineTo(872, 298);
+    roof.lineTo(150, 298);
+    roof.stroke();
+    roof.fillStyle = "gray";
+    roof.fill();
+  }
+
+  switch (houseColor) {
+    case "brown":
+    case "yellow":
+    case "purple":
+    case "orange":
+    case "blue":
+    case "green":
+    case "red":
+      switch (doorColor) {
+        case "brown":
+        case "yellow":
+        case "purple":
+        case "orange":
+        case "blue":
+        case "green":
+        case "red":
+          buildHouse();
+          buildDoor();
+          buildKnob();
+          buildRoof();
+          buildWindows();
+          break;
+        default:
+          alert("One of your colors is not supported.");
+      }
+      break;
+    default:
+      alert("One of your colors is not supported.");
+  }
 }
