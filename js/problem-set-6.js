@@ -48,6 +48,8 @@ function drawRectangle() {
   let canvas = document.getElementById("canvas2");
   let rect = canvas.getContext("2d");
   rect.clearRect(0, 0, 1024, 512);
+
+  //Prompts everything and changes the data type into numbers
   let height = prompt("Height:");
   height = Number(height);
   let width = prompt("Width:");
@@ -56,6 +58,8 @@ function drawRectangle() {
   x = Number(x);
   let y = prompt("Y:");
   y = Number(y);
+
+  // Tests if inputs were valid
   if ( (isNaN(x)) || (isNaN(y)) || (isNaN(height)) || (isNaN(width))) {
     alert("One of your inputs is not a number.");
   } else if ( (x + width >= 1024) || (y + height >= 512) ) {
@@ -69,6 +73,8 @@ function drawRectangle() {
   } else if (y < 5) {
     alert("Your y-coordinate is too small.");
   } else {
+
+  //Draws Rectangle
     rect.beginPath();
     rect.rect(x, y, width, height);
     rect.stroke();
@@ -106,8 +112,12 @@ function drawColoredRectangle() {
   let canvas = document.getElementById("canvas3");
   let color = canvas.getContext("2d");
   color.clearRect(0, 0, 1024, 128);
+
+  // Prompt to get color
   rectColor = prompt("Color:");
   color.fillStyle = rectColor;
+
+  // Gets Color and if possible makes the rectangle
   switch (rectColor) {
     case "black":
     case "yellow":
@@ -157,6 +167,9 @@ function drawTriangle() {
 
   let canvas = document.getElementById("canvas4");
   let triangle = canvas.getContext("2d");
+  triangle.clearRect(0, 0, 1024, 512);
+
+  //Prompts to get sides and changes them all into numbers
   let side1 = prompt("Side 1:");
   let side2 = prompt("Side 2:");
   let side3 = prompt("side 3:");
@@ -164,10 +177,12 @@ function drawTriangle() {
   side2 = Number(side2);
   side3 = Number(side3);
 
+  // Check is they're numbes first
   if ( (isNaN(side1)) || (isNaN(side2)) || (isNaN(side3)) ) {
     alert("One of your inputs is not a number");
   }
 
+  // Organizes the sides so the first is the smallest the second is the second smallest and the third is the hypotenuse
   let sides = [];
   sides.push(Math.min(side1, side2, side3));
   let total = side1 + side2 + side3
@@ -176,18 +191,18 @@ function drawTriangle() {
   sides.push(Math.max(side1, side2, side3));
   console.log(sides[0], sides[1], sides[2]);
 
+  //Checks if it is a valid right triangle
   if ( (sides[0]**2) + (sides[1]**2) != (sides[2]**2)) {
     alert("This is not a valid right triangle.")
   } else {
-    triangle.clearRect(0, 0, 1024, 512);
 
+  // Draws right Triangle
     triangle.beginPath(10, 10);
     triangle.lineTo(10, (sides[0] + 10));
     triangle.lineTo((sides[1] + 10), (sides[0] + 10));
     triangle.lineTo(10, 10);
     triangle.closePath();
     triangle.stroke();
-
   }
 }
 
@@ -214,11 +229,14 @@ function drawSmileyFace() {
   let canvas = document.getElementById("canvas5");
   let radius = canvas.getContext("2d");
   radius.clearRect(0, 0, 1024, 512);
+
+  //Prompts and sets sizes for the faces, eyes, and mouth
   let radii = prompt("Radius: ");
   radii = Number(radii);
   let eyes = (radii/10);
   let mouth = (radii*0.7);
 
+  // Checks whether it is possible to draw the face on the canvas
   if ( (isNaN(radii)) ) {
     alert("Your input is not a number.")
   } else if (radii < 1) {
@@ -226,6 +244,8 @@ function drawSmileyFace() {
   } else if (radii > 250.5) {
     alert("The smiley face will not fit on the canvas.");
   } else {
+
+    // Draws the Smiley Face
     radius.beginPath();
     radius.arc((radii + 10), (radii + 10), radii, 0, 2 * Math.PI, false);
     radius.stroke();
@@ -239,7 +259,6 @@ function drawSmileyFace() {
     radius.arc((radii + 10), ((radii+10)-(mouth*0.05)), mouth, 0, Math.PI, false);
     radius.stroke();
   }
-
 }
 
 /*
@@ -266,15 +285,21 @@ function drawStar() {
   let star = canvas.getContext("2d");
   const PI = Math.PI;
   star.clearRect(0, 0, 1024, 256);
+
+  // Gets the radii and change them into numbers
   let outerRadius = prompt("Outer Radius: ");
   outerRadius = Number(outerRadius);
   let innerRadius = prompt("Inner Radius: ");
   innerRadius = Number(innerRadius);
+
+  // Checks if it's possible to make the star
   if ( (isNaN(outerRadius)) || (isNaN(innerRadius)) ) {
     alert("One of your inputs is not a number")
   } else if ( innerRadius >= outerRadius ) {
     alert("Your outer radius must be larger than your inner radius.")
   } else {
+
+    //Starts to draw the star
     star.beginPath();
     star.moveTo(125, 125 - outerRadius);
     let x = 1.5;
@@ -287,6 +312,7 @@ function drawStar() {
     }
 
     star.stroke();
+
   }
 }
 
@@ -312,18 +338,25 @@ function drawStopSign() {
   let canvas = document.getElementById("canvas7");
   let sign = canvas.getContext("2d");
   sign.clearRect(0, 0, 1024, 256);
-  let length = 102.5;
-  const PI = Math.PI;
-  let x = 1.375;
 
+  //Sets constants and varibles
+  const PI = Math.PI;
+  let length = 80;
+  let x = 10 + (length * Math.cos(1.75 * PI));
+  let y = 10;
+
+  // Starts to draw Octogon
   sign.beginPath();
-  sign.moveTo((length * Math.cos(1.375 * PI)) + 107.5, (length * Math.sin(1.375 * PI)) + 107.5);
-  for (let i = 0 ; i < 9; i++) {
-    sign.lineTo((length * Math.cos(x * PI)) + 107.5, (length * Math.sin(x * PI)) + 107.5);
-    x += .25;
+  sign.moveTo(x, y);
+  let r = 0;
+  for (let i = 0 ; i < 8; i++) {
+    x += length * Math.cos(r * PI);
+    y += length * Math.sin(r * PI);
+    r += .25
+    sign.lineTo(x, y);
   }
 
-//right now
+  // Styles the sign
   sign.lineWidth = 5;
   sign.stroke();
   sign.fillStyle = "red";
@@ -332,23 +365,6 @@ function drawStopSign() {
   sign.font = "65px sans-serif";
   sign.fillStyle = "white";
   sign.fillText("STOP", 19, 132.5);
-
-//maybe
-  let p = 150
-  let q = 10
-  sign.beginPath();
-  sign.moveTo(p, q);
-  length = 80;
-  let r = 0
-  for (let i = 0 ; i < 8; i++) {
-    p = p + length * Math.cos(r * PI);
-    q = q + length * Math.sin(r * PI);
-    r += .25
-    sign.lineTo(p, q);
-  }
-  sign.stroke();
-  sign.fillStyle = "red";
-  sign.fill();
 
 }
 
@@ -371,18 +387,23 @@ function drawStopSign() {
  */
 
 function drawPyramid() {
-  //100.2 max
+
   let canvas = document.getElementById("canvas8");
   let block = canvas.getContext("2d");
   block.clearRect(0, 0, 1024, 512);
+
+  // Prompts for side length
   let length = prompt("Side Length: ");
   length = Number(length);
-  let v = 1;
-  let w = .5;
-  let x = 10;
-  let y = 502;
-  let blocksInRow = 5;
 
+  // Varibles
+  let v = 1; // Used to indicate a new level
+  let w = .5; // Indicates that when moved to a new level move tot he right a bit
+  let x = 10; // Starting x Coordinate
+  let y = 502; // Starting y coordinate
+  let blocksInRow = 5; // Starting number of blocks in level 1
+
+  // Function to create one block given a side length
   function createBlock() {
     block.beginPath();
     block.moveTo(x, y);
@@ -393,6 +414,7 @@ function drawPyramid() {
     block.stroke();
   }
 
+  //Checks if the pyramis is possible
   if ( (isNaN(length)) ) {
     alert("Your input is not a number.")
   } else if (length <= 0) {
@@ -400,14 +422,18 @@ function drawPyramid() {
   } else if (length > 100.2) {
     alert("The pyramid will not fit on the canvas.");
   } else {
+
+    //Loops to repeatedly draw x number of blocks given a level in the pyramid
     for (let i = 0; i < 5; i++) {
       for (let i = 0; i < blocksInRow; i++) {
         createBlock();
         x += length;
       }
+
+      // Indicates where to draw blocks on a new level
       x = 10 + (w * length);
       y = 502 - (v * length);
-      z--;
+      blocksInRow--;
       v++;
       w += .5;
     }
@@ -451,10 +477,13 @@ function drawHouse() {
   let door = canvas.getContext("2d");
   let knob = canvas.getContext("2d");
   house.clearRect(0, 0, 1024, 760);
+
+  // Gets volor and sets an x coordinate
   let houseColor = prompt("House Color: ");
   let doorColor = prompt("Front Door Color");
   let x = 270;
 
+  // Builds the 4 windows
   function buildWindows () {
     for (let a = 0; a < 2; a++) {
       let y = 712;
@@ -475,6 +504,7 @@ function drawHouse() {
     }
   }
 
+  // Builds the base of the house
   function buildHouse () {
     house.lineWidth = 3;
     house.beginPath();
@@ -488,6 +518,7 @@ function drawHouse() {
     house.fill();
   }
 
+  // Builds the door of the house
   function buildDoor () {
     door.lineWidth = 3;
     door.beginPath();
@@ -501,15 +532,17 @@ function drawHouse() {
     door.fill();
   }
 
+  // Builds the knob of the house
   function buildKnob () {
     knob.lineWidth = 3;
     knob.beginPath();
     knob.arc(545, 674, 7.5, 0, 2 * Math.PI);
     knob.stroke();
-    knob.fillStyle = "yellow";
+    knob.fillStyle = "black";
     knob.fill();
   }
 
+  // Builds the roof of the house
   function buildRoof () {
     roof.lineWidth = 3;
     roof.beginPath();
@@ -522,6 +555,7 @@ function drawHouse() {
     roof.fill();
   }
 
+  // Checks if the colors are possible
   switch (houseColor) {
     case "brown":
     case "yellow":
@@ -538,6 +572,7 @@ function drawHouse() {
         case "blue":
         case "green":
         case "red":
+          //Draws the house
           buildHouse();
           buildDoor();
           buildKnob();
