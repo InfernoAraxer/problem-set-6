@@ -332,6 +332,9 @@ function drawStopSign() {
   sign.fillStyle = "white";
   sign.fillText("STOP", 19, 132.5);
 
+  sign.beginPath();
+  sign.moveTo(10,10)
+
 }
 
 /*
@@ -363,7 +366,7 @@ function drawPyramid() {
   let w = .5;
   let x = 10;
   let y = 502;
-  let z = 5;
+  let blocksInRow = 5;
 
   function createBlock() {
     block.beginPath();
@@ -383,7 +386,7 @@ function drawPyramid() {
     alert("The pyramid will not fit on the canvas.");
   } else {
     for (let i = 0; i < 5; i++) {
-      for (let i = 0; i < z; i++) {
+      for (let i = 0; i < blocksInRow; i++) {
         createBlock();
         x += length;
       }
