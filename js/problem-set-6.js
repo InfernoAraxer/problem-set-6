@@ -185,13 +185,12 @@ function drawTriangle() {
   // Organizes the sides so the first is the smallest the second is the second smallest and the third is the hypotenuse
   let sides = [];
   sides.push(Math.min(side1, side2, side3));
-  let total = side1 + side2 + side3
-  side2 = (total - (sides[0] + Math.max(side1, side2, side3)));
-  sides.push(side2)
+  let total = side1 + side2 + side3;
+  sides.push(total - (sides[0] + Math.max(side1, side2, side3)));
   sides.push(Math.max(side1, side2, side3));
   console.log(sides[0], sides[1], sides[2]);
 
-  //Checks if it is a valid right triangle
+  // Checks if it is a valid right triangle
   if ( (sides[0]**2) + (sides[1]**2) != (sides[2]**2)) {
     alert("This is not a valid right triangle.")
   } else {
