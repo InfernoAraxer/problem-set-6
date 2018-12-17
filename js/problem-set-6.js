@@ -323,6 +323,7 @@ function drawStopSign() {
     x += .25;
   }
 
+//right now
   sign.lineWidth = 5;
   sign.stroke();
   sign.fillStyle = "red";
@@ -332,8 +333,22 @@ function drawStopSign() {
   sign.fillStyle = "white";
   sign.fillText("STOP", 19, 132.5);
 
+//maybe
+  let p = 150
+  let q = 10
   sign.beginPath();
-  sign.moveTo(10,10)
+  sign.moveTo(p, q);
+  length = 80;
+  let r = 0
+  for (let i = 0 ; i < 8; i++) {
+    p = p + length * Math.cos(r * PI);
+    q = q + length * Math.sin(r * PI);
+    r += .25
+    sign.lineTo(p, q);
+  }
+  sign.stroke();
+  sign.fillStyle = "red";
+  sign.fill();
 
 }
 
